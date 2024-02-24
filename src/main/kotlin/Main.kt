@@ -2,6 +2,9 @@ package org.noblak
 
 import com.mongodb.MongoException
 import com.mongodb.kotlin.client.coroutine.MongoClient
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.bson.BsonInt64
 import org.bson.Document
 
@@ -38,5 +41,15 @@ suspend fun main() {
     }
     while (true) {
 
+    }
+}
+
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+
+fun Application.module() {
+    routing {
+        get("/") {
+            call.respondText("Hello, world!")
+        }
     }
 }
