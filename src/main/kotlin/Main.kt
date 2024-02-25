@@ -7,9 +7,15 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.bson.BsonInt64
 import org.bson.Document
+import org.noblak.plugins.configureRouting
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+
+fun Application.module() {
+    configureRouting()
+}
+
+/*
 suspend fun main() {
     val name = "Kotlin"
     //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
@@ -43,13 +49,4 @@ suspend fun main() {
 
     }
 }
-
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
-
-fun Application.module() {
-    routing {
-        get("/") {
-            call.respondText("Hello, world!")
-        }
-    }
-}
+ */

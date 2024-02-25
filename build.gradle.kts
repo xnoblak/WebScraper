@@ -4,6 +4,7 @@ val kotlinVersion: String by project
 val logbackVersion: String by project
 
 plugins {
+    application
     kotlin("jvm") version "1.9.21"
     id("io.ktor.plugin") version "2.3.8"
 }
@@ -12,7 +13,7 @@ group = "org.noblak"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("org.noblak.MainKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")

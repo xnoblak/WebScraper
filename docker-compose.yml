@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   mongodb:
@@ -11,7 +11,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - mongodb_data:/data/db
-
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
   netty-app:
     build:
       context: .
@@ -21,10 +26,11 @@ services:
       - "8080:8080"
       - "5005:5005"
     depends_on:
-      - mongodb
+      mongodb:
+          condition: service_healthy
     environment:
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n"
-      MONGODB_URI: "mongodb://admin:admin@mongodb:27017/" # Update your-database with your actual database name
+      MONGODB_URI: "mongodb://admin:admin@mongodb:27017/"
 
 volumes:
   mongodb_data:
